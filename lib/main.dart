@@ -21,7 +21,7 @@ class Done extends StatelessWidget {
             const ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
           ]),
       debugShowCheckedModeBanner: false,
-      initialRoute: BoardingScreen.id,
+      initialRoute: SplashScreen.id,
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFD2FDFF),
         textTheme: const TextTheme(

@@ -7,8 +7,15 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(),
+    return const Scaffold(
+      body: Center(
+        child: Text(
+          'Hello There',
+          style: TextStyle(
+            fontSize: 40,
+          ),
+        ),
+      ),
     );
   }
 }

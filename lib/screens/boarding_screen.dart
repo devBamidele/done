@@ -22,19 +22,16 @@ class _BoardingScreenState extends State<BoardingScreen>
     super.initState();
 
     controller = AnimationController(
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
 
     animation =
         CurvedAnimation(parent: controller, curve: Curves.easeInOutExpo);
 
-    animation = Tween<double>(begin: 0, end: 10).animate(controller);
+    animation = Tween<double>(begin: 0, end: 150).animate(controller);
 
     controller.forward();
-    controller.addListener(() {
-      setState(() {});
-    });
   }
 
   @override
@@ -66,63 +63,73 @@ class _BoardingScreenState extends State<BoardingScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomPaint(
-        painter: OpenPainter(),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                AnimatedTextKit(
-                  isRepeatingAnimation: false,
-                  animatedTexts: [
-                    TypewriterAnimatedText(
-                      'Stay on top on things',
-                      textStyle: TextStyle(
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black.withOpacity(0.75),
+      body: Stack(
+        children: [
+          AnimatedBuilder(
+            builder: (_, child) {
+              return CustomPaint(
+                painter: OpenPainter(animation.value),
+                child: const Center(),
+              );
+            },
+            animation: animation,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  AnimatedTextKit(
+                    isRepeatingAnimation: false,
+                    animatedTexts: [
+                      TypewriterAnimatedText(
+                        'Stay on top on things',
+                        textStyle: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black.withOpacity(0.75),
+                        ),
+                        textAlign: TextAlign.center,
+                        speed: const Duration(milliseconds: 120),
                       ),
-                      textAlign: TextAlign.center,
-                      speed: const Duration(milliseconds: 120),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  'Streamline and improve the way you organize your tasks.',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black.withOpacity(0.6),
+                    ],
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 20),
-                Material(
-                  color: const Color(0xFFbd6b73),
-                  elevation: 7,
-                  borderRadius: BorderRadius.circular(15.0),
-                  child: MaterialButton(
-                    onPressed: () {
-                      Navigator.of(context).push(_createRoute());
-                    },
-                    minWidth: 210.0,
-                    height: 50.0,
-                    child: const Text(
-                      'Get Started',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
+                  const SizedBox(height: 20),
+                  Text(
+                    'Streamline and improve the way you organize your tasks.',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black.withOpacity(0.6),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 20),
+                  Material(
+                    color: const Color(0xFFbd6b73),
+                    elevation: 7,
+                    borderRadius: BorderRadius.circular(15.0),
+                    child: MaterialButton(
+                      onPressed: () {
+                        Navigator.of(context).push(_createRoute());
+                      },
+                      minWidth: 210.0,
+                      height: 50.0,
+                      child: const Text(
+                        'Get Started',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 10),
-              ],
+                  const SizedBox(height: 10),
+                ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
