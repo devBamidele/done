@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
       pageBuilder: (context, animation, secondaryAnimation) =>
           const BoardingScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(1.0, 1.0);
+        const begin = Offset(1.0, 0.0);
         const end = Offset.zero;
         const curve = Curves.ease;
 
