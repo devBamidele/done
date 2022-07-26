@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:done/screens/splash_screen.dart';
 import 'package:done/screens/boarding_screen.dart';
-import 'package:done/screens/exp_screen.dart';
+import 'package:done/screens/task_screen.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 main() => runApp(const Done());
@@ -21,7 +21,7 @@ class Done extends StatelessWidget {
             const ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
           ]),
       debugShowCheckedModeBanner: false,
-      initialRoute: SplashScreen.id,
+      initialRoute: BoardingScreen.id,
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFD2FDFF),
         textTheme: const TextTheme(
@@ -31,7 +31,7 @@ class Done extends StatelessWidget {
       routes: {
         SplashScreen.id: (context) => const SplashScreen(),
         BoardingScreen.id: (context) => const BoardingScreen(),
-        ExpScreen.id: (context) => const ExpScreen(),
+        TaskScreen.id: (context) => const TaskScreen(),
       },
     );
   }

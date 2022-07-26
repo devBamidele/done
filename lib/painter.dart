@@ -39,10 +39,10 @@ class OpenPainter extends CustomPainter {
         Offset(center.width - 100, center.height - 150), 75, middleOuter);
 
     canvas.drawCircle(
-        Offset(center.width + 130, center.height - 300), 50, topInner);
+        Offset(center.width + 130, center.height - 300), 45, topInner);
 
     canvas.drawCircle(
-        Offset(center.width + 130, center.height - 300), 65, topOuter);
+        Offset(center.width + 130, center.height - 300), 60, topOuter);
 
     canvas.drawLine(Offset(center.width - 140, center.height + 50),
         Offset(center.width - 60, center.height + 50), hLines);
