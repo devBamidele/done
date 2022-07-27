@@ -1,3 +1,4 @@
+import 'package:done/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:done/painter.dart';
@@ -85,11 +86,7 @@ class _BoardingScreenState extends State<BoardingScreen>
                     animatedTexts: [
                       TypewriterAnimatedText(
                         'Stay on top on things',
-                        textStyle: TextStyle(
-                          fontSize: 32.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black.withOpacity(0.75),
-                        ),
+                        textStyle: Theme.of(context).textTheme.headline1,
                         textAlign: TextAlign.center,
                         speed: const Duration(milliseconds: 120),
                       ),
@@ -106,7 +103,7 @@ class _BoardingScreenState extends State<BoardingScreen>
                   ),
                   const SizedBox(height: 20),
                   Material(
-                    color: const Color(0xFFbd6b73),
+                    color: kSecColor,
                     elevation: 7,
                     borderRadius: BorderRadius.circular(15.0),
                     child: MaterialButton(
@@ -118,7 +115,7 @@ class _BoardingScreenState extends State<BoardingScreen>
                       child: const Text(
                         'Get Started',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: kThemeColor,
                           fontSize: 16,
                         ),
                       ),

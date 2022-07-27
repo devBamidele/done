@@ -70,8 +70,8 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               TextLiquidFill(
                 text: 'DONE',
-                waveColor: const Color(0xFFbd6b73),
-                boxBackgroundColor: const Color(0xFFD2FDFF),
+                waveColor: kSecColor,
+                boxBackgroundColor: kThemeColor,
                 textStyle: kMainStyle,
               ),
               AnimatedCrossFade(

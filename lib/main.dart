@@ -1,3 +1,4 @@
+import 'package:done/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:done/screens/splash_screen.dart';
 import 'package:done/screens/boarding_screen.dart';
@@ -21,11 +22,19 @@ class Done extends StatelessWidget {
             const ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
           ]),
       debugShowCheckedModeBanner: false,
-      initialRoute: SplashScreen.id,
+      initialRoute: TaskScreen.id,
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFD2FDFF),
-        textTheme: const TextTheme(
-          headline1: TextStyle(fontSize: 80, fontWeight: FontWeight.bold),
+        scaffoldBackgroundColor: kThemeColor,
+        textTheme: TextTheme(
+          headline1: TextStyle(
+            fontSize: 32.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.black.withOpacity(0.75),
+          ),
+          headline2: const TextStyle(
+            fontSize: 16,
+            color: kSecColor,
+          ),
         ),
       ),
       routes: {
