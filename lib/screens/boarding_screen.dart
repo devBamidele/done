@@ -85,7 +85,7 @@ class _BoardingScreenState extends State<BoardingScreen>
                     isRepeatingAnimation: false,
                     animatedTexts: [
                       TypewriterAnimatedText(
-                        'Stay on top on things',
+                        'Stay on top of things',
                         textStyle: Theme.of(context).textTheme.headline1,
                         textAlign: TextAlign.center,
                         speed: const Duration(milliseconds: 120),
