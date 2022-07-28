@@ -25,7 +25,6 @@ class TaskScreen extends StatelessWidget {
                 Icons.add,
                 size: 33,
                 semanticLabel: 'Create a new task',
-                color: kThemeColor,
               ),
               onPressed: () {},
             ),

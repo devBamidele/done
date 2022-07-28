@@ -19,12 +19,13 @@ class TaskList extends StatelessWidget {
             final task = data.publicTasks[index];
             return TaskTile(
               task: task.name,
-              checkboxCallback: (newValue) {
+              checkboxCallback: (bool? newValue) {
                 data.updateTask(task);
               },
               isChecked: task.isDone,
             );
           },
+          padding: const EdgeInsets.symmetric(horizontal: 8),
         );
       },
     );

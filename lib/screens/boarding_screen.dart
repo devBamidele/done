@@ -1,7 +1,7 @@
 import 'package:done/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:done/painter.dart';
+import 'package:done/Painter/painter.dart';
 import 'package:done/screens/task_screen.dart';
 
 class BoardingScreen extends StatefulWidget {
@@ -23,7 +23,7 @@ class _BoardingScreenState extends State<BoardingScreen>
     super.initState();
 
     controller = AnimationController(
-      duration: const Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
 

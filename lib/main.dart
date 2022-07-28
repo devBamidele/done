@@ -3,12 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:done/screens/splash_screen.dart';
 import 'package:done/screens/boarding_screen.dart';
 import 'package:done/screens/task_screen.dart';
+import 'package:done/screens/add_task_screen.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:sqflite/sqflite.dart';
 
 import 'data/data.dart';
 
-main() => runApp(const Done());
+main() async {
+  runApp(const Done());
+  WidgetsFlutterBinding.ensureInitialized();
+  final database = openDatabase(
+    join(await getDatabasesPath(), 'done_database.db'),
+  );
+}
 
 class Done extends StatelessWidget {
   const Done({Key? key}) : super(key: key);
@@ -46,6 +55,7 @@ class Done extends StatelessWidget {
           SplashScreen.id: (context) => const SplashScreen(),
           BoardingScreen.id: (context) => const BoardingScreen(),
           TaskScreen.id: (context) => const TaskScreen(),
+          AddTaskScreen.id: (context) => const AddTaskScreen(),
         },
       ),
     );
