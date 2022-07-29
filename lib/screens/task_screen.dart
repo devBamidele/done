@@ -1,5 +1,6 @@
 import 'package:done/constants.dart';
 import 'package:done/lists/category_list.dart';
+import 'package:done/screens/add_task_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,6 +11,26 @@ class TaskScreen extends StatelessWidget {
   const TaskScreen({Key? key}) : super(key: key);
 
   static const id = 'ExpScreen';
+
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          const AddTaskScreen(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +47,9 @@ class TaskScreen extends StatelessWidget {
                 size: 33,
                 semanticLabel: 'Create a new task',
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(_createRoute());
+              },
             ),
           ),
           body: SafeArea(
@@ -49,7 +72,10 @@ class TaskScreen extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const CategoryList(),
+                  const SizedBox(
+                    height: 130,
+                    child: CategoryList(),
+                  ),
                   const SizedBox(
                     height: 20,
                   ),

@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:done/reusables/category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,23 +10,33 @@ class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<Data>(builder: (_, data, Widget? child) {
-      return CarouselSlider.builder(
-        itemCount: data.categoryCount,
-        itemBuilder: (_, int itemIndex, int pageViewIndex) {
-          final card = data.publicCategory[itemIndex];
-          return CategoryCard(
-            category: card.catName,
-            taskNo: card.taskNo,
-            percent: card.complete,
-          );
-        },
-        options: CarouselOptions(
-          height: 140,
-          enableInfiniteScroll: false,
-          enlargeCenterPage: true,
-          viewportFraction: 0.6,
-          initialPage: 1,
-        ),
+      return ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+        child: data.publicCategory.isNotEmpty // Check if the listView is empty
+            ? ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: data.categoryCount,
+                itemBuilder: (_, itemIndex) {
+                  final card = data.publicCategory[itemIndex];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: CategoryCard(
+                      category: card.catName,
+                      taskNo: card.taskNo,
+                      percent: card.complete,
+                    ),
+                  );
+                },
+              )
+            : Center(
+                child: Text(
+                  'No categories',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black.withOpacity(0.6),
+                  ),
+                ),
+              ),
       );
     });
   }

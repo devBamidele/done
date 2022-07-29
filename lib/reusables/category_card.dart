@@ -19,7 +19,7 @@ class CategoryCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: GestureDetector(
         child: Container(
-          height: 130,
+          height: 100,
           width: 195,
           decoration: BoxDecoration(
             boxShadow: const [
