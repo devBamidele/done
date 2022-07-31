@@ -11,7 +11,7 @@ class DatabaseHelper {
 
   static const table = 'done_table';
 
-  static const columnId = '_id';
+  static const columnId = 'id';
   static const columnName = 'name';
   static const columnAge = 'age';
   static const columnTask = 'task';
@@ -74,7 +74,6 @@ class DatabaseHelper {
     final List<Map<String, dynamic>> maps = await db!.query(table);
     return List.generate(maps.length, (i) {
       return DataClass(
-        id: maps[i][columnId],
         task: maps[i][columnTask],
         complete: maps[i][columnComplete],
         category: maps[i][columnCategory],
@@ -90,17 +89,17 @@ class DatabaseHelper {
         await db!.rawQuery('SELECT COUNT(*) FROM $table'));
   }
 
-  // We are assuming here that the id column in the map is set. The other
-  // column values will be used to update the row.
-  Future<int> update(DataClass row) async {
-    Database? db = await instance.database;
-    return await db!.update(
-      table,
-      row.toMap(),
-      where: '$columnId = ?',
-      whereArgs: [row.id],
-    );
-  }
+  // // We are assuming here that the id column in the map is set. The other
+  // // column values will be used to update the row.
+  // Future<int> update(DataClass row) async {
+  //   Database? db = await instance.database;
+  //   return await db!.update(
+  //     table,
+  //     row.toMap(),
+  //     where: '$columnName = ?',
+  //     whereArgs: [row.name],
+  //   );
+  // }
 
   // Deletes the row specified by the id. The number of affected rows is
   // returned. This should be 1 as long as the row exists.

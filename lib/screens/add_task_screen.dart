@@ -30,6 +30,8 @@ class AddTaskScreen extends StatelessWidget {
                 semanticLabel: 'Create a new task',
               ),
               onPressed: () {
+                data.insert();
+                data.getTasks();
                 Navigator.pop(context);
               },
             ),

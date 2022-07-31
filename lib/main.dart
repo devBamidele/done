@@ -4,13 +4,10 @@ import 'package:done/screens/splash_screen.dart';
 import 'package:done/screens/boarding_screen.dart';
 import 'package:done/screens/task_screen.dart';
 import 'package:done/screens/add_task_screen.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:sqflite/sqflite.dart';
 
 import 'data/data.dart';
-import 'models/data_class.dart';
 
 main() async {
   runApp(const Done());
