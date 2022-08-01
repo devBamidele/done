@@ -9,37 +9,27 @@ import '../models/category.dart';
 import '../models/task.dart';
 
 class Data extends ChangeNotifier {
-  final List<Task> _myTasks = [];
-  final List<Category> _myCategory = [
-    Category(taskNo: 12, catName: 'Work', complete: 0.7),
-    Category(taskNo: 3, catName: 'School', complete: 0.4),
-  ];
+  final List<Task> _myTasks = []; // Stores the tasks in the database
+  final List<Category> _myCategory =
+      []; // Stores the categories in the database
 
   String? myTask;
   String? category;
-  int id = -1;
 
   // reference to our single class that manages the database
   final dbHelper = DatabaseHelper.instance;
-
-  /// Increases the id of each task by 1 after before insertion.
-  int increment() {
-    id++;
-    notifyListeners();
-    return id;
-  }
 
   /// Input a new task to the database.
   insert() async {
     await dbHelper.insert(
       DataClass(
+        id: null,
         task: myTask.toString(),
         complete: 1,
         category: category.toString(),
       ),
     );
-    log('The task is $myTask');
-    log('The category is $category');
+    // Reset the input fields.
     myTask = null;
     category = null;
     notifyListeners();
@@ -50,8 +40,32 @@ class Data extends ChangeNotifier {
     final List<DataClass> tasks = await dbHelper.queryAllRows();
     _myTasks.clear();
     for (var task in tasks) {
-      _myTasks.add(Task(name: task.task));
+      _myTasks.add(
+        Task(name: task.task, id: task.id),
+      );
     }
+    notifyListeners();
+  }
+
+  /// Get all categories from the database and return a list of [Category] objects.
+  getCategories() async {
+    final categories = await dbHelper.queryCategory();
+    _myCategory.clear();
+    for (var cat in categories) {
+      _myCategory.add(
+        Category(
+          taskNo: cat['COUNT(*)'],
+          catName: cat['category'],
+          complete: 0.5,
+        ),
+      );
+    }
+    notifyListeners();
+  }
+
+  /// Update the complete status of a task in the database.
+  updateChecked(int? anItem, int complete) async {
+    dbHelper.update(anItem, complete);
     notifyListeners();
   }
 
@@ -62,6 +76,7 @@ class Data extends ChangeNotifier {
   UnmodifiableListView<Category> get publicCategory =>
       UnmodifiableListView(_myCategory);
 
+  /// For the checked state of a task.
   updateTask(Task task) {
     task.toggleDone();
     notifyListeners();

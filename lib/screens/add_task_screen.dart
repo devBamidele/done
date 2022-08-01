@@ -32,6 +32,7 @@ class AddTaskScreen extends StatelessWidget {
               onPressed: () {
                 data.insert();
                 data.getTasks();
+                data.getCategories();
                 Navigator.pop(context);
               },
             ),

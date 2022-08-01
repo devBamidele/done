@@ -24,6 +24,10 @@ class TaskList extends StatelessWidget {
                       task: task.name,
                       checkboxCallback: (bool? newValue) {
                         data.updateTask(task);
+                        data.updateChecked(
+                          task.id,
+                          task.isDone ? 0 : 1,
+                        ); // Update the database when the checkbox is changed
                       },
                       isChecked: task.isDone,
                     );

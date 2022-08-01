@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:done/Painter/painter.dart';
 import 'package:done/screens/task_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../data/data.dart';
 
 class BoardingScreen extends StatefulWidget {
   const BoardingScreen({Key? key}) : super(key: key);
@@ -63,73 +66,80 @@ class _BoardingScreenState extends State<BoardingScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            AnimatedBuilder(
-              builder: (_, child) {
-                return CustomPaint(
-                  painter: OpenPainter(animation.value),
-                  child: const Center(),
-                );
-              },
-              animation: animation,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    AnimatedTextKit(
-                      isRepeatingAnimation: false,
-                      animatedTexts: [
-                        TypewriterAnimatedText(
-                          'Stay on top of things',
-                          textStyle: Theme.of(context).textTheme.headline1,
-                          textAlign: TextAlign.center,
-                          speed: const Duration(milliseconds: 120),
+    return Consumer<Data>(
+      builder: (_, data, Widget? child) {
+        return Scaffold(
+          body: SafeArea(
+            child: Stack(
+              children: [
+                AnimatedBuilder(
+                  builder: (_, child) {
+                    return CustomPaint(
+                      painter: OpenPainter(animation.value),
+                      child: const Center(),
+                    );
+                  },
+                  animation: animation,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        AnimatedTextKit(
+                          isRepeatingAnimation: false,
+                          animatedTexts: [
+                            TypewriterAnimatedText(
+                              'Stay on top of things',
+                              textStyle: Theme.of(context).textTheme.headline1,
+                              textAlign: TextAlign.center,
+                              speed: const Duration(milliseconds: 120),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      'Streamline and improve the way you organize your tasks.',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black.withOpacity(0.6),
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 20),
-                    Material(
-                      color: kSecColor,
-                      elevation: 7,
-                      borderRadius: BorderRadius.circular(15.0),
-                      child: MaterialButton(
-                        onPressed: () {
-                          Navigator.of(context).push(_createRoute());
-                        },
-                        minWidth: 210.0,
-                        height: 50.0,
-                        child: const Text(
-                          'Get Started',
+                        const SizedBox(height: 20),
+                        Text(
+                          'Streamline and improve the way you organize your tasks.',
                           style: TextStyle(
-                            color: kThemeColor,
                             fontSize: 16,
+                            color: Colors.black.withOpacity(0.6),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 20),
+                        Material(
+                          color: kSecColor,
+                          elevation: 7,
+                          borderRadius: BorderRadius.circular(15.0),
+                          child: MaterialButton(
+                            onPressed: () {
+                              // Call the functions that sets stage for the 'task_screen'
+                              data.getTasks();
+                              data.getCategories();
+                              Navigator.of(context).push(_createRoute());
+                            },
+                            minWidth: 210.0,
+                            height: 50.0,
+                            child: const Text(
+                              'Get Started',
+                              style: TextStyle(
+                                color: kThemeColor,
+                                fontSize: 16,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                        const SizedBox(height: 10),
+                      ],
                     ),
-                    const SizedBox(height: 10),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

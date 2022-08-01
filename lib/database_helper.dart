@@ -74,6 +74,7 @@ class DatabaseHelper {
     final List<Map<String, dynamic>> maps = await db!.query(table);
     return List.generate(maps.length, (i) {
       return DataClass(
+        id: maps[i][columnId],
         task: maps[i][columnTask],
         complete: maps[i][columnComplete],
         category: maps[i][columnCategory],
@@ -81,25 +82,23 @@ class DatabaseHelper {
     });
   }
 
-  // All of the methods (insert, query, update, delete) can also be done using
-  // raw SQL commands. This method uses a raw query to give the row count.
-  Future<int?> queryRowCount() async {
+  // Get all the unique categories from the database.
+  // And order them by the number of tasks in each category.
+  Future<List<Map<String, dynamic>>> queryCategory() async {
     Database? db = await instance.database;
-    return Sqflite.firstIntValue(
-        await db!.rawQuery('SELECT COUNT(*) FROM $table'));
+    final List<Map<String, dynamic>> data = await db!.rawQuery(
+      'SELECT $columnCategory, COUNT(*) FROM $table GROUP BY $columnCategory ORDER BY COUNT(*) DESC',
+    );
+    return data;
   }
 
-  // // We are assuming here that the id column in the map is set. The other
-  // // column values will be used to update the row.
-  // Future<int> update(DataClass row) async {
-  //   Database? db = await instance.database;
-  //   return await db!.update(
-  //     table,
-  //     row.toMap(),
-  //     where: '$columnName = ?',
-  //     whereArgs: [row.name],
-  //   );
-  // }
+  // Update the 'complete' status of a task in the database.
+  // The complete status is 0 if the task is completed, 1 if not.
+  Future<int> update(int? id, int complete) async {
+    Database? db = await instance.database;
+    return await db!.rawUpdate(
+        'Update $table SET $columnComplete = $complete WHERE $columnId = $id');
+  }
 
   // Deletes the row specified by the id. The number of affected rows is
   // returned. This should be 1 as long as the row exists.
