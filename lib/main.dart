@@ -1,4 +1,5 @@
 import 'package:done/constants.dart';
+import 'package:done/exp.dart';
 import 'package:flutter/material.dart';
 import 'package:done/screens/splash_screen.dart';
 import 'package:done/screens/boarding_screen.dart';
@@ -50,6 +51,7 @@ class Done extends StatelessWidget {
           BoardingScreen.id: (context) => const BoardingScreen(),
           TaskScreen.id: (context) => const TaskScreen(),
           AddTaskScreen.id: (context) => const AddTaskScreen(),
+          ExperimentScreen.id: (context) => const ExperimentScreen(),
         },
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 
 /// The class that controls the appearance of each task tile
@@ -7,40 +8,73 @@ class TaskTile extends StatelessWidget {
     required this.task,
     required this.checkboxCallback,
     required this.isChecked,
+    required this.deleteCallback,
     Key? key,
   }) : super(key: key);
 
   final bool isChecked;
   final String task;
+  final Function deleteCallback;
   final Function(bool?) checkboxCallback;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 7),
-      child: ListTile(
-        tileColor: Colors.white.withOpacity(0.8),
-        title: Text(
-          task,
-          style: TextStyle(
-            fontSize: 18,
-            decoration: isChecked ? TextDecoration.lineThrough : null,
-          ),
+      child: Slidable(
+        startActionPane: ActionPane(
+          motion: const DrawerMotion(),
+          extentRatio: 0.235,
+          children: [
+            SlidableAction(
+              onPressed: null, // When the action is pressed, the task is edited
+              backgroundColor: const Color(0xFF0392CF).withOpacity(0.7),
+              foregroundColor: Colors.white,
+              icon: Icons.edit,
+              label: 'Edit',
+              borderRadius: BorderRadius.circular(18),
+            ),
+          ],
         ),
-        horizontalTitleGap: 5,
-        leading: RoundCheckBox(
-          checkedWidget: const Icon(
-            Icons.check,
-            color: Colors.black,
-            size: 15,
-          ),
-          checkedColor: Colors.grey,
-          onTap: checkboxCallback,
-          isChecked: isChecked,
-          size: 20,
+        endActionPane: ActionPane(
+          motion: const DrawerMotion(),
+          extentRatio: 0.235,
+          children: [
+            SlidableAction(
+              onPressed: (_) =>
+                  deleteCallback(), // When the delete button is pressed, call the deleteCallback function
+              backgroundColor: Colors.redAccent.withOpacity(0.7),
+              foregroundColor: Colors.white,
+              icon: Icons.delete_rounded,
+              label: 'Delete',
+              borderRadius: BorderRadius.circular(18),
+            ),
+          ],
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18.0),
+        child: ListTile(
+          tileColor: Colors.white.withOpacity(0.8),
+          title: Text(
+            task,
+            style: TextStyle(
+              fontSize: 18,
+              decoration: isChecked ? TextDecoration.lineThrough : null,
+            ),
+          ),
+          horizontalTitleGap: 5,
+          leading: RoundCheckBox(
+            checkedWidget: const Icon(
+              Icons.check,
+              color: Colors.black,
+              size: 15,
+            ),
+            checkedColor: Colors.grey,
+            onTap: checkboxCallback,
+            isChecked: isChecked,
+            size: 20,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+          ),
         ),
       ),
     );

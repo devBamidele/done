@@ -9,15 +9,21 @@ import '../models/category.dart';
 import '../models/task.dart';
 
 class Data extends ChangeNotifier {
-  final List<Task> _myTasks = []; // Stores the tasks in the database
-  final List<Category> _myCategory =
-      []; // Stores the categories in the database
+  // reference to our single class that manages the database
+  final dbHelper = DatabaseHelper.instance;
 
   String? myTask;
   String? category;
 
-  // reference to our single class that manages the database
-  final dbHelper = DatabaseHelper.instance;
+  final List<Task> _myTasks = []; // Stores the tasks in the database
+  final List<Category> _myCategory =
+      []; // Stores the categories in the database
+
+  /// For the checked state of a task.
+  updateTask(Task task) {
+    task.toggleDone();
+    notifyListeners();
+  }
 
   /// Input a new task to the database.
   insert() async {
@@ -41,7 +47,10 @@ class Data extends ChangeNotifier {
     _myTasks.clear();
     for (var task in tasks) {
       _myTasks.add(
-        Task(name: task.task, id: task.id),
+        Task(
+            name: task.task,
+            id: task.id,
+            isDone: task.complete == 1 ? false : true),
       );
     }
     notifyListeners();
@@ -75,10 +84,4 @@ class Data extends ChangeNotifier {
   get categoryCount => _myCategory.length;
   UnmodifiableListView<Category> get publicCategory =>
       UnmodifiableListView(_myCategory);
-
-  /// For the checked state of a task.
-  updateTask(Task task) {
-    task.toggleDone();
-    notifyListeners();
-  }
 }
