@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:done/reusables/task_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../data/data.dart';
+import '../models/task.dart';
 
 class TaskList extends StatelessWidget {
   const TaskList({
@@ -30,6 +33,9 @@ class TaskList extends StatelessWidget {
                         ); // Update the database when the checkbox is changed
                       },
                       isChecked: task.isDone,
+                      deleteCallback: () {
+                        data.delete(task.id);
+                      },
                     );
                   },
                   padding: const EdgeInsets.symmetric(horizontal: 8),

@@ -16,8 +16,7 @@ class Data extends ChangeNotifier {
   String? category;
 
   final List<Task> _myTasks = []; // Stores the tasks in the database
-  final List<Category> _myCategory =
-      []; // Stores the categories in the database
+  final List<Category> _myCategory = [];
 
   /// For the checked state of a task.
   updateTask(Task task) {
@@ -75,6 +74,12 @@ class Data extends ChangeNotifier {
   /// Update the complete status of a task in the database.
   updateChecked(int? anItem, int complete) async {
     dbHelper.update(anItem, complete);
+    notifyListeners();
+  }
+
+  /// Delete a task from the database.
+  delete(int? id) async {
+    dbHelper.delete(id);
     notifyListeners();
   }
 

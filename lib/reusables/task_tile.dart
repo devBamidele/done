@@ -22,23 +22,9 @@ class TaskTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 7),
       child: Slidable(
-        startActionPane: ActionPane(
-          motion: const DrawerMotion(),
-          extentRatio: 0.235,
-          children: [
-            SlidableAction(
-              onPressed: null, // When the action is pressed, the task is edited
-              backgroundColor: const Color(0xFF0392CF).withOpacity(0.7),
-              foregroundColor: Colors.white,
-              icon: Icons.edit,
-              label: 'Edit',
-              borderRadius: BorderRadius.circular(18),
-            ),
-          ],
-        ),
         endActionPane: ActionPane(
           motion: const DrawerMotion(),
-          extentRatio: 0.235,
+          extentRatio: 0.28,
           children: [
             SlidableAction(
               onPressed: (_) =>
